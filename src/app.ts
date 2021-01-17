@@ -1,4 +1,9 @@
-const countZerosOnes = (decimal: number): Array<number> => {
+interface Result {
+  zeros: number;
+  ones: number;
+}
+
+const countZerosOnes = (decimal: number): Result => {
   // count zeros and ones from a string
   // const binary = (decimal >>> 0).toString(2);
   // return [
@@ -7,10 +12,22 @@ const countZerosOnes = (decimal: number): Array<number> => {
   // ];
 
   // count zeros and ones from a number
-  const binary = Number((decimal >>> 0).toString(2));
-  return [];
+  let binary = Number((decimal >>> 0).toString(2));
+  let zeros = 0;
+  let ones = 0;
+  while (binary > 0) {
+    binary /= 10; //1010, 101, 10.1, 1.01, 0.101
+    if (binary === Math.floor(binary)) {
+      zeros++;
+    } else {
+      ones++;
+    }
+    binary = Math.floor(binary);
+
+  }
+  return { zeros, ones }; 
 };
 
-const result = countZerosOnes(10);
+const result = countZerosOnes(100);
 
 console.log(result);
